@@ -21,18 +21,19 @@ EVENTS =
   BEFORE_UNLOAD:  'page:before-unload'
   EXPIRE:         'page:expire'
 
-fetch = (url) ->
+fetch = (url, keepScrollPosition = false) ->
   url = new ComponentUrl url
 
   rememberReferer()
   cacheCurrentPage()
   progressBar?.start()
 
+
   if transitionCacheEnabled and cachedPage = transitionCacheFor(url.absolute)
     fetchHistory cachedPage
     fetchReplacement url, null, false
   else
-    fetchReplacement url, resetScrollPosition
+    fetchReplacement url, if keepScrollPosition then null else resetScrollPosition
 
 transitionCacheFor = (url) ->
   cachedPage = pageCache[url]
