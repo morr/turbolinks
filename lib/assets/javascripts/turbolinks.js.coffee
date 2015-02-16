@@ -42,10 +42,10 @@ transitionCacheFor = (url) ->
 enableTransitionCache = (enable = true) ->
   transitionCacheEnabled = enable
 
-enableProgressBar = (enable = true) ->
+enableProgressBar = (enable = true, elementSelector = 'html') ->
   return unless browserSupportsTurbolinks
   if enable
-    progressBar ?= new ProgressBar 'html'
+    progressBar ?= new ProgressBar elementSelector
   else
     progressBar?.uninstall()
     progressBar = null
